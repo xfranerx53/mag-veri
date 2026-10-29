@@ -1,0 +1,508 @@
+[
+ {
+  "k": "market",
+  "ad": "Market / Süpermarket",
+  "osm": [
+   [
+    "shop",
+    "^(supermarket|convenience|grocery|general)$"
+   ]
+  ]
+ },
+ {
+  "k": "manav",
+  "ad": "Manav",
+  "osm": [
+   [
+    "shop",
+    "^greengrocer$"
+   ]
+  ]
+ },
+ {
+  "k": "kasap",
+  "ad": "Kasap",
+  "osm": [
+   [
+    "shop",
+    "^butcher$"
+   ]
+  ]
+ },
+ {
+  "k": "balik",
+  "ad": "Balıkçı",
+  "osm": [
+   [
+    "shop",
+    "^(seafood|fish)$"
+   ]
+  ]
+ },
+ {
+  "k": "firin",
+  "ad": "Fırın / Ekmek",
+  "osm": [
+   [
+    "shop",
+    "^bakery$"
+   ]
+  ]
+ },
+ {
+  "k": "pastane",
+  "ad": "Pastane / Tatlıcı",
+  "osm": [
+   [
+    "shop",
+    "^(pastry|confectionery|chocolate)$"
+   ]
+  ]
+ },
+ {
+  "k": "kuruyemis",
+  "ad": "Kuruyemiş",
+  "osm": [
+   [
+    "shop",
+    "^nuts$"
+   ]
+  ]
+ },
+ {
+  "k": "sarkuteri",
+  "ad": "Şarküteri / Peynirci",
+  "osm": [
+   [
+    "shop",
+    "^(deli|cheese|dairy)$"
+   ]
+  ]
+ },
+ {
+  "k": "aktar",
+  "ad": "Aktar / Baharat / Kahve-çay",
+  "osm": [
+   [
+    "shop",
+    "^(spices|tea|coffee|herbalist|honey)$"
+   ]
+  ]
+ },
+ {
+  "k": "icecek",
+  "ad": "Su / İçecek bayi",
+  "osm": [
+   [
+    "shop",
+    "^(beverages|water)$"
+   ]
+  ]
+ },
+ {
+  "k": "dondurma",
+  "ad": "Dondurmacı",
+  "osm": [
+   [
+    "amenity",
+    "^ice_cream$"
+   ],
+   [
+    "shop",
+    "^ice_cream$"
+   ]
+  ]
+ },
+ {
+  "k": "pazar",
+  "ad": "Pazar yeri / Hal",
+  "osm": [
+   [
+    "amenity",
+    "^marketplace$"
+   ]
+  ]
+ },
+ {
+  "k": "durum",
+  "ad": "Dürüm / Kebap / Çiğköfte",
+  "osm": [
+   [
+    "amenity",
+    "^fast_food$"
+   ]
+  ]
+ },
+ {
+  "k": "pide",
+  "ad": "Pide / Lahmacun / Pizza",
+  "osm": [
+   [
+    "cuisine",
+    "pizza|pide|lahmacun"
+   ]
+  ]
+ },
+ {
+  "k": "restoran",
+  "ad": "Restoran / Lokanta",
+  "osm": [
+   [
+    "amenity",
+    "^restaurant$"
+   ]
+  ]
+ },
+ {
+  "k": "kafe",
+  "ad": "Kafe / Kahveci",
+  "osm": [
+   [
+    "amenity",
+    "^cafe$"
+   ]
+  ]
+ },
+ {
+  "k": "bar",
+  "ad": "Bar / Pub",
+  "osm": [
+   [
+    "amenity",
+    "^(bar|pub)$"
+   ]
+  ]
+ },
+ {
+  "k": "otel",
+  "ad": "Otel / Pansiyon",
+  "osm": [
+   [
+    "tourism",
+    "^(hotel|guest_house|motel|hostel)$"
+   ]
+  ]
+ },
+ {
+  "k": "bufe",
+  "ad": "Büfe / Tekel / Gazeteci",
+  "osm": [
+   [
+    "shop",
+    "^(kiosk|newsagent|tobacco|alcohol)$"
+   ]
+  ]
+ },
+ {
+  "k": "giyim",
+  "ad": "Giyim / Butik",
+  "osm": [
+   [
+    "shop",
+    "^(clothes|boutique|fashion)$"
+   ]
+  ]
+ },
+ {
+  "k": "ayakkabi",
+  "ad": "Ayakkabı / Çanta",
+  "osm": [
+   [
+    "shop",
+    "^(shoes|bag|leather)$"
+   ]
+  ]
+ },
+ {
+  "k": "kozmetik",
+  "ad": "Kozmetik / Parfümeri",
+  "osm": [
+   [
+    "shop",
+    "^(cosmetics|perfumery|chemist|beauty)$"
+   ]
+  ]
+ },
+ {
+  "k": "eczane",
+  "ad": "Eczane",
+  "osm": [
+   [
+    "amenity",
+    "^pharmacy$"
+   ]
+  ]
+ },
+ {
+  "k": "kirtasiye",
+  "ad": "Kırtasiye / Kitapçı",
+  "osm": [
+   [
+    "shop",
+    "^(stationery|books|copyshop)$"
+   ]
+  ]
+ },
+ {
+  "k": "hediye",
+  "ad": "Oyuncak / Hediyelik",
+  "osm": [
+   [
+    "shop",
+    "^(toys|gift)$"
+   ]
+  ]
+ },
+ {
+  "k": "kuyumcu",
+  "ad": "Kuyumcu / Saatçi",
+  "osm": [
+   [
+    "shop",
+    "^(jewelry|watches)$"
+   ]
+  ]
+ },
+ {
+  "k": "elektronik",
+  "ad": "Elektronik / Telefoncu",
+  "osm": [
+   [
+    "shop",
+    "^(electronics|mobile_phone|computer|appliance)$"
+   ]
+  ]
+ },
+ {
+  "k": "mobilya",
+  "ad": "Mobilya / Ev tekstili",
+  "osm": [
+   [
+    "shop",
+    "^(furniture|interior_decoration|curtain|carpet|bed|household_linen)$"
+   ]
+  ]
+ },
+ {
+  "k": "zuccaciye",
+  "ad": "Züccaciye / Ev gereçleri",
+  "osm": [
+   [
+    "shop",
+    "^(houseware|kitchen)$"
+   ]
+  ]
+ },
+ {
+  "k": "cicek",
+  "ad": "Çiçekçi / Fidanlık",
+  "osm": [
+   [
+    "shop",
+    "^(florist|garden_centre)$"
+   ]
+  ]
+ },
+ {
+  "k": "pet",
+  "ad": "Pet shop",
+  "osm": [
+   [
+    "shop",
+    "^pet$"
+   ]
+  ]
+ },
+ {
+  "k": "spor",
+  "ad": "Spor / Outdoor",
+  "osm": [
+   [
+    "shop",
+    "^(sports|outdoor)$"
+   ]
+  ]
+ },
+ {
+  "k": "avm",
+  "ad": "AVM / Büyük mağaza",
+  "osm": [
+   [
+    "shop",
+    "^(mall|department_store|variety_store)$"
+   ]
+  ]
+ },
+ {
+  "k": "fabrika",
+  "ad": "Fabrika / Üretim tesisi",
+  "osm": [
+   [
+    "man_made",
+    "^works$"
+   ],
+   [
+    "industrial",
+    "."
+   ]
+  ]
+ },
+ {
+  "k": "atolye",
+  "ad": "Atölye / İmalathane",
+  "osm": [
+   [
+    "craft",
+    "."
+   ]
+  ]
+ },
+ {
+  "k": "toptan",
+  "ad": "Toptancı",
+  "osm": [
+   [
+    "shop",
+    "^(wholesale|trade)$"
+   ]
+  ]
+ },
+ {
+  "k": "depo",
+  "ad": "Depo / Lojistik / Kargo",
+  "osm": [
+   [
+    "industrial",
+    "^(warehouse|logistics)$"
+   ],
+   [
+    "office",
+    "^(logistics|courier)$"
+   ]
+  ]
+ },
+ {
+  "k": "ambalaj",
+  "ad": "Ambalaj / Plastik",
+  "osm": [
+   [
+    "shop",
+    "^packaging$"
+   ]
+  ]
+ },
+ {
+  "k": "matbaa",
+  "ad": "Matbaa / Reklam",
+  "osm": [
+   [
+    "craft",
+    "^printer$"
+   ],
+   [
+    "shop",
+    "^copyshop$"
+   ]
+  ]
+ },
+ {
+  "k": "hirdavat",
+  "ad": "Hırdavat / Nalbur / Yapı",
+  "osm": [
+   [
+    "shop",
+    "^(hardware|doityourself|paint|tiles|building_materials)$"
+   ]
+  ]
+ },
+ {
+  "k": "tarim",
+  "ad": "Tarım / Zirai",
+  "osm": [
+   [
+    "shop",
+    "^agrarian$"
+   ]
+  ]
+ },
+ {
+  "k": "oto",
+  "ad": "Oto / Yedek parça / Servis",
+  "osm": [
+   [
+    "shop",
+    "^(car_parts|car|car_repair|tyres)$"
+   ]
+  ]
+ },
+ {
+  "k": "akaryakit",
+  "ad": "Akaryakıt istasyonu",
+  "osm": [
+   [
+    "amenity",
+    "^fuel$"
+   ]
+  ]
+ },
+ {
+  "k": "kuafor",
+  "ad": "Kuaför / Güzellik",
+  "osm": [
+   [
+    "shop",
+    "^(hairdresser|beauty)$"
+   ]
+  ]
+ },
+ {
+  "k": "temizleme",
+  "ad": "Kuru temizleme / Çamaşırhane",
+  "osm": [
+   [
+    "shop",
+    "^(dry_cleaning|laundry)$"
+   ]
+  ]
+ },
+ {
+  "k": "saglik",
+  "ad": "Klinik / Hastane / Diş",
+  "osm": [
+   [
+    "amenity",
+    "^(clinic|dentist|hospital|doctors)$"
+   ]
+  ]
+ },
+ {
+  "k": "veteriner",
+  "ad": "Veteriner",
+  "osm": [
+   [
+    "amenity",
+    "^veterinary$"
+   ]
+  ]
+ },
+ {
+  "k": "egitim",
+  "ad": "Okul / Kurs",
+  "osm": [
+   [
+    "amenity",
+    "^(school|college|kindergarten|language_school|driving_school)$"
+   ]
+  ]
+ },
+ {
+  "k": "ofis",
+  "ad": "Şirket / Ofis",
+  "osm": [
+   [
+    "office",
+    "^company$"
+   ]
+  ]
+ }
+]
