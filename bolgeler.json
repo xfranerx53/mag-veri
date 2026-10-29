@@ -1,0 +1,10 @@
+[
+ {"kod": "europe",            "ad": "Avrupa (Türkiye dahil)", "url": "https://download.geofabrik.de/europe-latest.osm.pbf"},
+ {"kod": "russia",            "ad": "Rusya",                  "url": "https://download.geofabrik.de/russia-latest.osm.pbf"},
+ {"kod": "asia",              "ad": "Asya",                   "url": "https://download.geofabrik.de/asia-latest.osm.pbf"},
+ {"kod": "africa",            "ad": "Afrika",                 "url": "https://download.geofabrik.de/africa-latest.osm.pbf"},
+ {"kod": "north-america",     "ad": "Kuzey Amerika",          "url": "https://download.geofabrik.de/north-america-latest.osm.pbf"},
+ {"kod": "central-america",   "ad": "Orta Amerika ve Karayipler", "url": "https://download.geofabrik.de/central-america-latest.osm.pbf"},
+ {"kod": "south-america",     "ad": "Güney Amerika",          "url": "https://download.geofabrik.de/south-america-latest.osm.pbf"},
+ {"kod": "australia-oceania", "ad": "Avustralya ve Okyanusya", "url": "https://download.geofabrik.de/australia-oceania-latest.osm.pbf"}
+]

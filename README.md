@@ -1,49 +1,48 @@
-# mag-veri — Pazar Analiz programının kendi veri servisi
+# mag-veri — Pazar Analiz programının kendi veri servisi (DÜNYA)
 
-Geoapify benzeri, **tamamen ücretsiz ve anahtarsız** işletme verisi.
-GitHub her pazartesi OpenStreetMap verisini (Geofabrik) indirir, işletmeleri ve yer adlarını ayıklar,
-~11 km'lik karelere bölüp **https://xfranerx53.github.io/mag-veri/** adresinde yayınlar.
-Pazar Analiz programı tarama yaparken sadece çevredeki kareleri indirir ve arar.
+Geoapify benzeri, **tamamen ücretsiz ve anahtarsız** işletme verisi — **bütün dünya**.
+GitHub ayda iki kez (1'inde ve 15'inde) OpenStreetMap verisini (Geofabrik) kıta kıta indirir, işletmeleri ve
+yer adlarını ayıklar, karelere bölüp **https://xfranerx53.github.io/mag-veri/** adresinde yayınlar.
+Pazar Analiz programı tarama yaparken sadece çevredeki kareleri indirir.
 
 Veri: © OpenStreetMap katkıda bulunanlar, ODbL lisansı (programda bu not gösterilir).
 
 ## Dosyalar
 | Dosya | Görevi |
 |---|---|
-| `ulkeler.json` | Hangi ülkelerin derleneceği. **Yeni ülke = yeni satır.** |
+| `bolgeler.json` | Hangi bölgelerin (kıtaların) derleneceği. 8 bölge = bütün dünya. |
 | `sektorler.json` | 49 sektörün OpenStreetMap etiket kuralları (programdaki listeyle aynı). |
-| `build.py` | Veriyi indirir, ayıklar, karelere böler, `site/` klasörüne yazar. |
-| `.github/workflows/veri.yml` | Haftalık otomatik görev + GitHub Pages yayını. |
+| `build.py` | `bolge <kod>`: bir kıtayı indirir/ayıklar. `birlestir`: hepsini birleştirip `site/` üretir. |
+| `.github/workflows/veri.yml` | Otomatik görev: 8 kıta aynı anda ayrı makinelerde, sonra birleştirme + yayın. |
 
-## Çıktı (yayınlanan dosyalar)
-- `data/ulkeler.json` — ülke listesi (ad, sınır kutusu, işletme sayısı, veri tarihi)
-- `data/<ülke>/meta.json` — kare boyutu ve hangi karede kaç işletme olduğu
-- `data/<ülke>/t/<enlem>_<boylam>.json` — o karedeki işletmeler: `[ad, sektör, enlem, boylam, telefon, web, adres, ilçe/il, osm_id]`
-- `data/<ülke>/yerler.json` — il, ilçe, mahalle, köy adları (adres / semt arama için)
+## Nasıl çalışır
+1. **liste** işi `bolgeler.json`'u okur.
+2. **bolge** işleri: her kıta ayrı bir GitHub makinesinde aynı anda işlenir (Avrupa en uzunu, ~1-2 saat).
+3. **yayinla** işi: parçaları birleştirir, kıta sınırında iki kez gelen işletmeleri siler, siteyi yayınlar.
+   Bir kıta hata verirse diğerleri yine yayınlanır; sayfada "derlenemeyen bölge" yazar. Hiçbiri olmazsa eski veri kalır.
 
-## Kurulum (bir kez)
-1. GitHub'da yeni **public** depo: `mag-veri`.
-2. `build.py`, `ulkeler.json`, `sektorler.json`, `README.md` dosyalarını yükle.
-3. **Add file → Create new file** → dosya adı: `.github/workflows/veri.yml` → içeriği yapıştır → Commit.
-4. **Settings → Pages → Build and deployment → Source: GitHub Actions**.
-5. **Actions** sekmesi → "Veri guncelle" → **Run workflow**. İlk çalıştırma ~15-40 dk.
-6. Yeşil tik çıkınca https://xfranerx53.github.io/mag-veri/ açılır ve ülke tablosu görünür.
+## Çıktı (yayınlanan dosyalar, `data/`)
+- `dunya.json` — özet: toplam işletme, tarih, bölgeler
+- `w/i/<blok>.json` — 4,8°'lik blok dizini: hangi karede kaç işletme var
+- `w/t/<boy>/<kare>.json.gz` — işletmeler `[ad, sektör, enlem, boylam, telefon, web, adres, ilçe/il, osm_id]`.
+  Boş yerlerde büyük kare (1,6°), şehirlerde küçük kare (en küçük 0,1°) — bir karede en çok ~2000 işletme.
+- `w/y/<kare>.json.gz` — 0,8°'lik karelerde il/ilçe/mahalle/köy adları (konumdan yer adı bulma)
+- `w/s/<harf>.json.gz` — yer adı arama dizini (Türkçe/İngilizce/yerel adlarla: "Moskova", "Moscow", "Москва")
+- Dosyalar sıkıştırılmıştır (.gz); program tarayıcıda açar. Böylece bütün dünya 1 GB sınırına sığar.
 
-## Yeni ülke eklemek
-`ulkeler.json`'a satır ekle (indirme adresleri: https://download.geofabrik.de):
-```json
-[
- {"cc": "tr", "ad": "Türkiye", "url": "https://download.geofabrik.de/europe/turkey-latest.osm.pbf"},
- {"cc": "az", "ad": "Azerbaycan", "url": "https://download.geofabrik.de/asia/azerbaijan-latest.osm.pbf"}
-]
-```
-Kaydedince görev kendiliğinden çalışır; program yeni ülkeyi otomatik tanır.
+## Kurulum / güncelleme
+1. Bu dosyaları depoya yükle (`build.py`, `bolgeler.json`, `sektorler.json`, `README.md`).
+2. `.github/workflows/veri.yml` dosyasının içeriğini yenisiyle değiştir (kalem ✏️ → hepsini sil → yapıştır → Commit).
+3. Eski `ulkeler.json` artık kullanılmıyor, silinebilir.
+4. Actions → "Veri guncelle" → **Run workflow**. İlk dünya derlemesi ~2-3 saat.
+5. Yeşil tik çıkınca https://xfranerx53.github.io/mag-veri/ sayfasında bölge tablosu görünür.
 
 ## Ücretsiz sınırlar (sıfır maliyet kuralı)
-- GitHub Actions: public depolarda ücretsiz; tek çalıştırma en fazla 6 saat.
-- GitHub Pages: site başına **1 GB**, ayda ~100 GB trafik. Görev her çalıştığında toplam boyutu kayıtlara yazar.
-- 1 GB'a yaklaşınca: ikinci bir depo (`mag-veri-2`) açılır, bazı ülkeler oraya taşınır; programda Ayarlar → "Veri adresi" ile bağlanır.
-- Almanya, Fransa gibi çok büyük ülkeler Geofabrik'te eyalet/bölge parçaları olarak eklenmeli (tek dosya çok büyük).
+- GitHub Actions: public depolarda ücretsiz; tek iş en fazla 6 saat, aynı anda 20 iş.
+- GitHub Pages: site başına **1 GB**, ayda ~100 GB trafik. `yayinla` işi kayıtlara toplam boyutu yazar.
+- Geofabrik'e saygı: bütün dünya ~80 GB indirme olduğu için ayda 2 kez çalışır (haftalık değil).
+- Avrupa bölgesi tek dosyada ~31 GB; makinenin diski yetmezse `bolgeler.json`'da Avrupa'yı parçalara ayır
+  (örn. `europe/turkey`, `europe/germany`… adresleri download.geofabrik.de'de).
 
 ## Elle güncelleme
 Actions → "Veri guncelle" → Run workflow.
