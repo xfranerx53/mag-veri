@@ -9,7 +9,7 @@ on:
     paths: ["ulkeler.json", "sektorler.json", "build.py", ".github/workflows/veri.yml"]
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -39,3 +39,12 @@ jobs:
       - name: Yayınla
         id: yayin
         uses: actions/deploy-pages@v4
+      - name: Etkinlik kaydı (GitHub 60 gün kuralı - zamanlanmış görev kapanmasın)
+        if: github.event_name != 'push'
+        run: |
+          date -u +%Y-%m-%dT%H:%MZ > son_guncelleme.txt
+          git config user.name "veri-bot"
+          git config user.email "veri-bot@users.noreply.github.com"
+          git add son_guncelleme.txt
+          git commit -m "Veri güncellendi $(date -u +%F)" || exit 0
+          git push
