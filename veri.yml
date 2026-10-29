@@ -2,14 +2,14 @@ name: Veri guncelle
 
 on:
   schedule:
-    - cron: "0 1 * * 1"   # her pazartesi 04:00 (Türkiye saati)
-  workflow_dispatch:       # Actions sekmesinden "Run workflow" ile elle çalıştırma
+    - cron: "0 1 1,15 * *"   # ayın 1'i ve 15'i, 04:00 (Türkiye saati) — tüm dünya
+  workflow_dispatch:          # Actions sekmesinden "Run workflow" ile elle çalıştırma
   push:
     branches: [main]
-    paths: ["ulkeler.json", "sektorler.json", "build.py", ".github/workflows/veri.yml"]
+    paths: ["bolgeler.json", "sektorler.json", "build.py", ".github/workflows/veri.yml"]
 
 permissions:
-  contents: read
+  contents: write
   pages: write
   id-token: write
 
@@ -18,20 +18,68 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
-  derle:
+  liste:
     runs-on: ubuntu-latest
-    timeout-minutes: 300
-    environment:
-      name: github-pages
-      url: ${{ steps.yayin.outputs.page_url }}
+    outputs:
+      bolgeler: ${{ steps.l.outputs.b }}
+    steps:
+      - uses: actions/checkout@v4
+      - id: l
+        run: echo "b=$(python3 build.py liste)" >> "$GITHUB_OUTPUT"
+
+  bolge:
+    needs: liste
+    runs-on: ubuntu-latest
+    timeout-minutes: 350
+    strategy:
+      fail-fast: false
+      max-parallel: 8
+      matrix:
+        bolge: ${{ fromJSON(needs.liste.outputs.bolgeler) }}
     steps:
       - uses: actions/checkout@v4
       - name: Araçları kur
         run: sudo apt-get update -qq && sudo apt-get install -y -qq osmium-tool
       - name: Disk yer aç
-        run: sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc || true
-      - name: Veriyi indir ve işle
-        run: python3 build.py
+        run: |
+          sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc /opt/hostedtoolcache/CodeQL || true
+          df -h / /mnt || true
+          M=$(df --output=avail -BG /mnt 2>/dev/null | tail -1 | tr -dc 0-9); R=$(df --output=avail -BG / | tail -1 | tr -dc 0-9)
+          if [ "${M:-0}" -gt "$R" ]; then D=/mnt/veri; else D=$HOME/veri; fi
+          sudo mkdir -p "$D" && sudo chown "$USER" "$D"
+          echo "TMPDIR_VERI=$D" >> "$GITHUB_ENV"; echo "Geçici klasör: $D"
+      - name: Bölgeyi indir ve işle
+        run: python3 build.py bolge ${{ matrix.bolge }}
+      - uses: actions/upload-artifact@v4
+        with:
+          name: parca-${{ matrix.bolge }}
+          path: parca/${{ matrix.bolge }}
+          retention-days: 2
+          compression-level: 0
+
+  yayinla:
+    needs: bolge
+    if: ${{ !cancelled() }}
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    environment:
+      name: github-pages
+      url: ${{ steps.yayin.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          pattern: parca-*
+          path: indir
+      - name: Parçaları yerleştir
+        run: |
+          mkdir -p parca
+          for d in indir/parca-*; do mv "$d" "parca/${d#indir/parca-}"; done
+          ls parca
+      - name: Birleştir
+        env:
+          TMPDIR_VERI: /mnt/veri
+        run: sudo mkdir -p /mnt/veri && sudo chown "$USER" /mnt/veri && python3 build.py birlestir
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:
@@ -39,3 +87,14 @@ jobs:
       - name: Yayınla
         id: yayin
         uses: actions/deploy-pages@v4
+        with:
+          timeout: 1800000
+      - name: Etkinlik kaydı (GitHub 60 gün kuralı - zamanlanmış görev kapanmasın)
+        if: github.event_name != 'push'
+        run: |
+          date -u +%Y-%m-%dT%H:%MZ > son_guncelleme.txt
+          git config user.name "veri-bot"
+          git config user.email "veri-bot@users.noreply.github.com"
+          git add son_guncelleme.txt
+          git commit -m "Veri güncellendi $(date -u +%F)" || exit 0
+          git push
