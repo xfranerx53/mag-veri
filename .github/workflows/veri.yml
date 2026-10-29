@@ -1,0 +1,41 @@
+name: Veri guncelle
+
+on:
+  schedule:
+    - cron: "0 1 * * 1"   # her pazartesi 04:00 (Türkiye saati)
+  workflow_dispatch:       # Actions sekmesinden "Run workflow" ile elle çalıştırma
+  push:
+    branches: [main]
+    paths: ["ulkeler.json", "sektorler.json", "build.py", ".github/workflows/veri.yml"]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+concurrency:
+  group: veri
+  cancel-in-progress: false
+
+jobs:
+  derle:
+    runs-on: ubuntu-latest
+    timeout-minutes: 300
+    environment:
+      name: github-pages
+      url: ${{ steps.yayin.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+      - name: Araçları kur
+        run: sudo apt-get update -qq && sudo apt-get install -y -qq osmium-tool
+      - name: Disk yer aç
+        run: sudo rm -rf /usr/share/dotnet /usr/local/lib/android /opt/ghc || true
+      - name: Veriyi indir ve işle
+        run: python3 build.py
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: site
+      - name: Yayınla
+        id: yayin
+        uses: actions/deploy-pages@v4
