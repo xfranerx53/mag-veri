@@ -357,6 +357,7 @@ def birlestir():
              "bolgeler": [{k: o[k] for k in ("kod", "ad", "adet", "tarih")} for o in ozet]}
     with open(os.path.join(DATA, "dunya.json"), "w", encoding="utf-8") as f:
         json.dump(dunya, f, ensure_ascii=False, indent=1)
+    shutil.copy(os.path.join(KOK, "sektorler.json"), os.path.join(DATA, "sektorler.json"))  # program sektör kurallarını buradan okur
     eksik = [b["ad"] for b in json.load(open(os.path.join(KOK, "bolgeler.json"), encoding="utf-8")) if b["kod"] not in {o["kod"] for o in ozet}]
     sat = "".join(f"<tr><td>{o['ad']}</td><td>{o['adet']:,}</td><td>{o['tarih']}</td></tr>" for o in ozet)
     with open(os.path.join(SITE, "index.html"), "w", encoding="utf-8") as f:
