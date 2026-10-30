@@ -37,10 +37,11 @@ FILTRE = [
     "nwr/amenity=restaurant,fast_food,cafe,bar,pub,pharmacy,marketplace,fuel,ice_cream,"
     "clinic,dentist,hospital,doctors,veterinary,school,college,kindergarten,language_school,driving_school",
     "nwr/tourism=hotel,guest_house,motel,hostel",
+    "nwr/building=industrial,factory,manufacture,warehouse", "wr/landuse=industrial",
     "n/place=city,town,village,suburb,neighbourhood,quarter",
 ]
 YER_TURLERI = {"city", "town", "village", "suburb", "neighbourhood", "quarter"}
-ISLETME_ANAHTAR = ("shop", "amenity", "craft", "office", "industrial", "man_made", "tourism")
+ISLETME_ANAHTAR = ("shop", "amenity", "craft", "office", "industrial", "man_made", "tourism", "building", "landuse")
 
 
 def log(*a):
@@ -64,7 +65,7 @@ def a10(x):
 
 def kurallar():
     sek = json.load(open(os.path.join(KOK, "sektorler.json"), encoding="utf-8"))
-    kur = [(s["k"], [(k, re.compile(r)) for k, r in s["osm"]], any(r == "." for _, r in s["osm"])) for s in sek]
+    kur = [(s["k"], [(k, re.compile(r, re.I if k == "name" else 0)) for k, r in s["osm"]], any(r == "." for _, r in s["osm"])) for s in sek]
     return [(k, kos) for k, kos, genel in sorted(kur, key=lambda x: x[2])]
 
 

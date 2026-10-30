@@ -344,6 +344,14 @@
    [
     "industrial",
     "."
+   ],
+   [
+    "building",
+    "^(industrial|factory|manufacture)$"
+   ],
+   [
+    "landuse",
+    "^industrial$"
    ]
   ]
  },
@@ -378,6 +386,10 @@
    [
     "office",
     "^(logistics|courier)$"
+   ],
+   [
+    "building",
+    "^warehouse$"
    ]
   ]
  },
@@ -388,6 +400,10 @@
    [
     "shop",
     "^packaging$"
+   ],
+   [
+    "name",
+    "ambalaj|po[sş]et|packag"
    ]
   ]
  },
@@ -501,7 +517,7 @@
   "osm": [
    [
     "office",
-    "^company$"
+    "."
    ]
   ]
  }

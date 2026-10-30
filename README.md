@@ -11,7 +11,7 @@ Veri: © OpenStreetMap katkıda bulunanlar, ODbL lisansı (programda bu not gös
 | Dosya | Görevi |
 |---|---|
 | `bolgeler.json` | Hangi bölgelerin (kıtaların) derleneceği. 8 bölge = bütün dünya. |
-| `sektorler.json` | 49 sektörün OpenStreetMap etiket kuralları (programdaki listeyle aynı). |
+| `sektorler.json` | 49 sektörün (+ adı olan sanayi/depo binaları, sanayi alanları, adında "ambalaj/poşet" geçenler) OpenStreetMap etiket kuralları (programdaki listeyle aynı). |
 | `build.py` | `bolge <kod>`: bir kıtayı indirir/ayıklar. `birlestir`: hepsini birleştirip `site/` üretir. |
 | `.github/workflows/veri.yml` | Otomatik görev: 8 kıta aynı anda ayrı makinelerde, sonra birleştirme + yayın. |
 
