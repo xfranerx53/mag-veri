@@ -24,7 +24,7 @@ Veri: © OpenStreetMap katkıda bulunanlar, ODbL lisansı (programda bu not gös
 ## Çıktı (yayınlanan dosyalar, `data/`)
 - `dunya.json` — özet: toplam işletme, tarih, bölgeler
 - `w/i/<blok>.json` — 4,8°'lik blok dizini: hangi karede kaç işletme var
-- `w/t/<boy>/<kare>.json.gz` — işletmeler `[ad, sektör, enlem, boylam, telefon, web, adres, ilçe/il, osm_id]`.
+- `w/t/<boy>/<kare>.json.gz` — işletmeler `[ad, sektör, enlem, boylam, telefon, web, adres, ilçe/il, osm_id, e-posta]`.
   Boş yerlerde büyük kare (1,6°), şehirlerde küçük kare (en küçük 0,1°) — bir karede en çok ~2000 işletme.
 - `w/y/<kare>.json.gz` — 0,8°'lik karelerde il/ilçe/mahalle/köy adları (konumdan yer adı bulma)
 - `w/s/<harf>.json.gz` — yer adı arama dizini (Türkçe/İngilizce/yerel adlarla: "Moskova", "Moscow", "Москва")

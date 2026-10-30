@@ -12,7 +12,7 @@
 Yayın düzeni (site/data/):
   dunya.json                    özet (tarih, adet, bölgeler)
   w/i/<BI>_<BJ>.json            blok dizini: hangi karede kaç işletme var
-  w/t/<s>/<i>_<j>.json.gz       işletmeler [ad, sektör, enlem, boylam, tel, web, adres, ilçe/il, osm_id]
+  w/t/<s>/<i>_<j>.json.gz       işletmeler [ad, sektör, enlem, boylam, tel, web, adres, ilçe/il, osm_id, e-posta]
                                 (kare boyu s x 0,1 derece; yoğun yerlerde küçük, boş yerlerde büyük kare)
   w/y/<i>_<j>.json.gz           0,8 derecelik karelerde yer adları [ad, tür, enlem, boylam, bağlı olduğu yer]
   w/s/<hex>.json.gz             yer adı arama dizini (adın ilk 2 harfine göre)
@@ -233,7 +233,8 @@ def bolge_isle(kod):
         tel = p.get("phone") or p.get("contact:phone") or p.get("contact:mobile") or p.get("mobile") or ""
         web = p.get("website") or p.get("contact:website") or ""
         oid = (p.get("@type", "n")[:1]) + str(p.get("@id", ""))
-        r = [p["name"].strip(), sinifla(p, KUR), lat, lon, tel.split(";")[0].strip(), web.split(";")[0].strip(), adres, il, oid]
+        ep = (p.get("email") or p.get("contact:email") or "").split(";")[0].strip()
+        r = [p["name"].strip(), sinifla(p, KUR), lat, lon, tel.split(";")[0].strip(), web.split(";")[0].strip(), adres, il, oid, ep]
         yaz(lat, lon, json.dumps(r, ensure_ascii=False, separators=(",", ":")))
         adet += 1
     yaz(0, 0, None)
@@ -306,7 +307,7 @@ def birlestir():
                     if not satir.strip():
                         continue
                     r = json.loads(satir)
-                    if len(r) == 9:
+                    if len(r) >= 9:  # işletme (9-10 alan); yer adı 5-6 alan
                         if r[8] not in gor:  # bölge sınırında iki kez gelen işletme
                             gor.add(r[8])
                             isletme.append(r)
